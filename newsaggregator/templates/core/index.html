@@ -1,49 +1,17 @@
-<!-- Extend the base template -->
 {% extends 'partials/base.html' %}
-
-<!-- Load the static files -->
 {% load static %}
 
-<!-- Define the category block -->
 {% block category %}
-    
+{% include 'components/category-btn.html' %}
 {% endblock category %}
+{% if messages %}
+{% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% endif %}
 
-<!-- Define the index block -->
 {% block index %}
-    <!-- Include the news component -->
-   
-    {% include 'components/news.html' %}
-    
-
-    {% comment %} <!-- Check if the user is not authenticated -->
-    {% if not request.user.is_authenticated %} {% endcomment %}
-
-     
-    <!-- Check if the user is not authenticated -->
-    {% if not request.user.is_authenticated %}
-
-        <!-- Display a message encouraging the user to register -->
-        {% comment %} <div class="alert alert-info" role="alert" style="background-color: #ffffff; border-color: #ffffff; color: #333333;">
-            <div style="display: flex; flex-direction: column; align-items: center;">
-                <p style="font-family: Teko, sans-serif; font-size: 30px; color: #007bff;">Register To View Bookmarks</p>
-                <!-- Display an image -->
-                <img style="width: 28em; margin: 10px 0; flex-shrink: 0;" src="{% static 'assets/images/bookmarks-animate.svg' %}" alt="">
-                <!-- Provide a sign-in/sign-up button -->
-                <a class="btn btn-primary" href="{% url 'userauths:sign-in' %}" role="button">Sign-in/Sign-up</a>
-            </div>
-
-        </div> {% endcomment %}
-    {% comment %} {% else %} {% endcomment %}
-        <!-- Display a welcome message for authenticated users -->
-        {% comment %} <div class="alert alert-success" role="alert">
-            <p>Welcome back, {{ request.user.username }}! Enjoy your bookmarks.</p>
-        </div> {% endcomment %}
-    {% comment %} {% endif %} {% endcomment %}
-
-        </div>
-    {% else %}
-        
-    {% endif %}
-
+{% include 'components/news.html' %}
 {% endblock index %}
